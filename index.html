@@ -12,6 +12,52 @@
             background-color: #f4f4f4;
         }
     </style>
+
+    <script>
+        function invalid_highlight(inputElement, text, textId) {
+            inputElement.style.border = "1px solid red";
+
+            var textElement = document.getElementById(textId);
+            var paragraph = document.createElement('p');
+            var text = document.createTextNode(text);
+            paragraph.appendChild(text);
+            paragraph.style.color = "red";
+            textElement.innerHTML = paragraph.outerHTML;;
+            textElement.style.marginBottom = "20px";
+        }
+
+        function valid_highlight(inputElement, textId) {
+            inputElement.style.border = "1px solid green";
+
+            const div = document.getElementById(textId);
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+        }
+
+        function validate() {
+            var username = document.getElementById("username");
+            var password = document.getElementById("password");
+
+
+            if (username.value.length == 0) {
+                invalid_highlight(username, "Invalid Username", "r1");
+            }
+
+            else {
+                valid_highlight(username, "r1");
+            }
+
+            if (password.value.length == 0) {
+                invalid_highlight(password, "Please enter your password", "r2");
+            }
+
+            else {
+                valid_highlight(password, "r2");
+            }
+
+        }
+    </script>
 </head>
 
 <body>
@@ -25,7 +71,7 @@
 
                         <form action="">
                             <div class="form-group">
-                                <div class="input-group">
+                                <div class="input-group" id="ig-1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -37,10 +83,11 @@
                                     </div>
                                     <input type="text" class="form-control" id="username" placeholder="Username">
                                 </div>
+                                <div id="r1"></div>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
+                            <div class="form-group ">
+                                <div class="input-group " id="ig-2">
+                                    <div class="input-group-prepend ">
                                         <span class="input-group-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
@@ -49,10 +96,11 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" class="form-control " id="password" placeholder="Password">
                                 </div>
+                                <div id="r2"></div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="validate()">Log In</button>
                             <div class="d-flex justify-content-between mt-3">
                                 <div>
                                     <input type="checkbox" name="remember" id="remember">
